@@ -16,8 +16,6 @@ connectDB();
 
 import authRoutes from "./routes/authRoutes.js";
 import chatRoutes from "./routes/chatRoutes.js";
-import generateResponse from "./services/aiService.js";
-import Message from "./models/Message.js";
 
 // 3. Create your app instance — this IS your server
 const app = express();
@@ -35,9 +33,6 @@ app.get("/health", (req, res)=> {
 
 // Routes
 app.use("/api/auth", authRoutes);
-app.use("/api/chat", chatRoutes);
-
-// All chat routes live under /api/chat
 app.use("/api/chat", chatRoutes);
 
 // 8. Use PORT from .env (with fallback to 5000)

@@ -5,11 +5,6 @@ import mongoose from 'mongoose';
 const messageSchema = new mongoose.Schema(
   {
 
-    userId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
-    },
     // Who sent the message: either "user" or "assistant"
     role: {
       type: String,
@@ -29,6 +24,12 @@ const messageSchema = new mongoose.Schema(
     conversationId: {
       type: String,
       required: true,
+    },
+
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: false,
     },
   },
   {

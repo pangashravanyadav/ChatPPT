@@ -86,8 +86,8 @@ export const login = async (req, res) => {
     });
 
   } catch (error) {
-  console.error("Register error FULL:", error); // changed from error.message to full error
-  res.status(500).json({ error: error.message }); // send actual error to Postman
+    console.error("Login error:", error.message);
+    res.status(500).json({ error: error.message });
   }
 };
 
