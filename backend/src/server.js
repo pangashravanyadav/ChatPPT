@@ -24,7 +24,9 @@ const app = express();
 app.use(express.json());
 
 // 5. Middleware: allows frontend (different port) to call this server
-app.use(cors());
+app.use(cors({
+  origin: ["http://localhost:3000", "https://chat-qvb7pk3dy-pangashravanyadavs-projects.vercel.app/"]
+}))
 
 // 6. Your first route — a health check
 app.get("/health", (req, res)=> {
