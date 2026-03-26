@@ -1,16 +1,22 @@
+// 1. Import mongoose — our tool to talk to MongoDB
+import mongoose from "mongoose";
 
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
-const mongoose = require('mongoose');
-
+// 2. Function that connects to the database
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI);
-    console.log('Connected to MongoDB');
+
+    // 3. Use the URL from .env file
+    const conn = await mongoose.connect(process.env.MONGO_URI);
+
+    // 4. If connected, log which host we connected to
+    console.log(`✅ MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
-    console.error('Error connecting to MongoDB:', error);
-    process.exit(1);
+
+    // 5. If connection fails, log the error and EXIT the process
+    console.error(`❌ MongoDB Error: ${error.message}`);
+    process.exit(1); // 1 = exit with failure
   }
 };
 
+// 6. Export so server.js can use it
 export default connectDB;

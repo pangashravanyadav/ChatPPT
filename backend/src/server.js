@@ -1,38 +1,49 @@
-import dotenv from 'dotenv';
+// 1. Load .env variables FIRST — before anything else
+import dotenv from "dotenv";
 dotenv.config();
-import express from 'express';
+
+// 1. Import express library
+import express from "express";
+
+// 2. Import cors library
+import cors from "cors";
+
+// 3. Import your DB connection function
 import connectDB from "./config/db.js";
-import { generateResponse } from "./services/aiService.js";
 
-
-
-// Step 1: Create app FIRST
-const app = express();
-
-// Step 2: Middleware
-app.use(express.json());
-
-// Step 3: Connect DB
+// 4. Connect to database immediately
 connectDB();
 
-// Step 4: Routes (NOW you can use app)
-console.log("ENV KEY:", process.env.OPENAI_API_KEY);
-app.get("/ai-test", async (req, res) => {
-  try {
-    console.log("AI route hit");
+import authRoutes from "./routes/authRoutes.js";
+import chatRoutes from "./routes/chatRoutes.js";
+import generateResponse from "./services/aiService.js";
+import Message from "./models/Message.js";
 
-    const reply = await generateResponse([
-      { role: "user", content: "Hello" }
-    ]);
+// 3. Create your app instance — this IS your server
+const app = express();
 
-    res.json({ reply });
-  } catch (error) {
-    console.error("Route Error:", error.message);
-    res.status(500).json({ error: error.message });
-  }
+// 4. Middleware: allows server to read JSON from requests
+app.use(express.json());
+
+// 5. Middleware: allows frontend (different port) to call this server
+app.use(cors());
+
+// 6. Your first route — a health check
+app.get("/health", (req, res)=> {
+  res.json({ status: "Server is alive" });
 });
 
-// Step 5: Start server
-app.listen(3000, () => {
-  console.log('Server is running on port 3000');
+// Routes
+app.use("/api/auth", authRoutes);
+app.use("/api/chat", chatRoutes);
+
+// All chat routes live under /api/chat
+app.use("/api/chat", chatRoutes);
+
+// 8. Use PORT from .env (with fallback to 5000)
+const PORT = process.env.PORT || 5000;
+
+// 8. Start the server
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
