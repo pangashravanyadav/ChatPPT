@@ -14,7 +14,6 @@ const generateResponse = async (messages) => {
   const client = new OpenAI({
   apiKey: process.env.NVIDIA_API_KEY,
   baseURL: "https://integrate.api.nvidia.com/v1",
-  timeout: 1000000, // 10 seconds timeout for NVIDIA API
   });
 
   console.log("🔑 API Key exists:", !!process.env.NVIDIA_API_KEY);
