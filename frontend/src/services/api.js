@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Base URL of your backend
 const API = axios.create({
-  baseURL: "https://chatppt-eob3.onrender.com",
+  baseURL: "https://chatppt-eob3.onrender.com/api",
 });
 
 // Automatically add token to every request if it exists
