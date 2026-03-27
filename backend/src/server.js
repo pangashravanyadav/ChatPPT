@@ -25,7 +25,7 @@ app.use(express.json());
 
 // 5. Middleware: allows frontend (different port) to call this server
 app.use(cors({
-  origin: ["https://chat-7294u6lsb-pangashravanyadavs-projects.vercel.app/"]
+  origin: ["https://chat-j70bqmbpl-pangashravanyadavs-projects.vercel.app/"]
 }))
 
 // 6. Your first route — a health check
